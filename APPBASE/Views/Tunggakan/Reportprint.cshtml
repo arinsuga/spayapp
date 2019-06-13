@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Laporan Tunggakan";
+    Layout = "~/Views/Shared/_LayoutPrintable.cshtml";
+}
+
+
+@{Html.RenderPartial("Report_data");}
+
+<div class="no-print"><a href="@Url.Action("Index", "Detailin_daily")" >Selesai</a></div>
+
+@section scripts {
+
+<script type="text/javascript">
+    window.print();
+</script>
+
+}

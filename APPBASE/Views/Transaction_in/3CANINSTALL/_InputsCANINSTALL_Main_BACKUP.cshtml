@@ -1,0 +1,41 @@
+﻿@model APPBASE.Models.Transaction_indetailVM
+@using APPBASE.Helpers
+@using APPBASE.Models
+@using APPBASE.Svcbiz
+
+@if ((Model.INST.INST_STS != null) && (Model.INST.INST_STS != 1))
+{
+    <div class="row">
+        <div class="col-xs-12">
+            @{Html.RenderPartial("_Inputs_Mainstudentinfo");}
+                
+                @if (Model.INST.INST_STS == 2)
+                {<h1 class="badge bg-green">Pembayaran Sudah Lunas</h1> }
+                @if (Model.INST.INST_STS == 3)
+                {<h1 class="badge bg-red">Cicilan dibatalkan</h1> }
+                
+        </div> <!-- <div class="col-xs-6"> -->
+    </div><!-- /.row -->
+}
+else
+{
+    <div class="row">
+        <div class="col-xs-6">
+            @{Html.RenderPartial("_Inputs_Mainstudentinfo");}
+        </div> <!-- <div class="col-xs-6"> -->
+        <div class="col-xs-6">
+            @if (Model.INST.DTA_STS == valFLAG.FLAG_DTA_STS_CREATE)
+            {
+                Html.RenderPartial("~/Views/Transaction_in/3CANINSTALL/_InputsCANINSTALL_Trncreate.cshtml");
+            }
+            else
+            {
+                Html.RenderPartial("~/Views/Transaction_in/3CANINSTALL/_InputsCANINSTALL_Trn.cshtml");
+            }
+
+
+        </div> <!-- <div class="col-xs-6"> -->
+    </div><!-- /.row -->
+}
+
+@{Html.RenderPartial("~/Views/Transaction_in/_Inputs_Trnhist.cshtml");}

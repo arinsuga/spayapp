@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Rekap Penerimaan Harian";
+    Layout = "~/Views/Shared/_LayoutPrintable.cshtml";
+}
+
+<div class="no-print"><a href="@Url.Action("Index", "Recapin_daily")" >Selesai</a></div>
+<br /><br /><br /><br />
+
+@{Html.RenderPartial("Report_dataprint");}
+
+<br /><br /><br /><br />
+<div class="no-print"><a href="@Url.Action("Index", "Recapin_daily")" >Selesai</a></div>
+
+@section scripts {
+
+<script type="text/javascript">
+    window.print();
+</script>
+
+}

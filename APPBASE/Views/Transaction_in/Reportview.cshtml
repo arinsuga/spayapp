@@ -1,0 +1,62 @@
+﻿@using APPBASE.Helpers
+@using APPBASE.Svcutil
+@using APPBASE.Svcbiz
+
+@{
+    ViewBag.Title = "Rekap Penerimaan Harian";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Print = "invoice";
+}
+@section includeBOTTOM {
+    @Scripts.Render("~/bundles/JSInputMask")
+}
+
+@{string vsClassBP_STS = "";}
+
+@if (Model.DETAIL != null) {
+    if (Model.DETAIL.Count > 0) {
+        <!-- title row -->
+        <div class="row no-print">
+            <div class="col-xs-12">
+                <a href="@Url.Action("Reportprint")" class="btn btn-flat btn-default" ><i class="fa fa-plus"></i> Cetak</a>
+            </div><!-- /.col -->
+        </div>
+    }
+}
+
+<!-- content row -->
+<div class="row">
+    <div class="col-xs-12">
+        @if (Model.DETAIL != null)
+        {
+            if (Model.DETAIL.Count > 0)
+            {
+                Html.RenderPartial("Report_data");
+            }
+            else
+            {
+                <h3>@{Html.RenderPartial("_PartialEmpty");}</h3>
+            }
+        }
+        else
+        {
+            <h3>@{Html.RenderPartial("_PartialEmpty");}</h3>
+        }
+    </div><!-- /.col -->
+</div>
+
+@section scripts {
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        /*=========================================
+        INITIALIZE
+        =========================================*/
+
+        /*=========================================
+        EVENTS
+        =========================================*/
+    });   //End $(document).ready
+</script>
+
+}

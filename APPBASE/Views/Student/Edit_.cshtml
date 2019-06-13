@@ -1,0 +1,18 @@
+﻿@model APPBASE.Models.StudentVM
+
+@Html.HiddenFor(model => model.DETAIL.ID)
+<div class="box box-info">
+    <div class="box-header">
+        <h3 class="box-title">Edit Data</h3>
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        @{Html.RenderPartial("_Inputs");}
+    </div><!-- /.box-body -->
+    <div class="box-footer">
+        <div class="row">
+            <div class="col-xs-12">
+                @{Html.RenderPartial("_PartialButtonCRUD_SAVE");}
+            </div>
+        </div><!-- /.row -->
+    </div><!-- /.box-footer -->
+</div><!-- /.box -->

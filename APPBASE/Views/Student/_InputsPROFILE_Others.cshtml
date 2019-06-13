@@ -1,0 +1,301 @@
+﻿@model APPBASE.Models.StudentVM
+@using APPBASE.Helpers
+@using APPBASE.Svcapp
+
+@{string vsErrClass = "";}
+@{string vsDisableButton = "";}
+@{Boolean isShowDropdown = true;}
+@{string vsReadonlyTextboxKey = "Readonly";}
+@{string vsReadonlyTextbox = "";}
+@if (ViewBag.CRUD_type == hlpFlags_CRUDOption.CREATE) { vsReadonlyTextboxKey = ""; }
+@if ((ViewBag.CRUD_type == hlpFlags_CRUDOption.VIEW) || (ViewBag.CRUD_type == hlpFlags_CRUDOption.DELETE)) { vsDisableButton = "disabled"; vsReadonlyTextbox = "Readonly"; isShowDropdown = false; }
+@{string vsDateFormat = "'alias': 'dd/mm/yyyy'";}
+
+<div class="row">
+    <div class="col-xs-12">
+        @if (ViewData.ModelState["SEX_ID0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="SEX_ID">J.Kelamin</label>
+                <select id="SEX_ID" name="DETAIL.SEX_ID" class="form-control select2" data-placeholder="Select J.Kelamin" style="width: 100%;" @vsReadonlyTextbox>
+                    <option selected value=""></option>
+                    @if (ViewBag.GENDER != null)
+                    {
+                        foreach (var item in ViewBag.GENDER)
+                        {
+
+                            if (Model.DETAIL.SEX_ID == item.ID)
+                            {<option selected value="@item.ID">@item.LOV_DESC</option> }
+                            else
+                            {<option value="@item.ID">@item.LOV_DESC</option> }
+                        }
+                    }
+                </select>
+
+            @if (ViewData.ModelState["SEX_ID1"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("SEX_ID1")
+                    </label>
+            }
+            @if (ViewData.ModelState["SEX_ID2"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("SEX_ID2")
+                    </label>
+            }
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-xs-12 -->
+</div><!-- /.row -->
+
+<div class="row">
+    <div class="col-xs-12 col-md-6">
+        @if (ViewData.ModelState["POB0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="POB">Tempat Lahir</label>
+            <input type="text" id="POB" name="DETAIL.POB" value="@Html.DisplayFor(model => model.DETAIL.POB)" class="form-control" maxlength = "20" @vsReadonlyTextbox />
+
+            @if (ViewData.ModelState["POB1"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("POB1")
+                    </label>
+            }
+            @if (ViewData.ModelState["POB2"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("POB2")
+                    </label>
+            }
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-xs-12 -->
+    <div class="col-xs-12 col-md-6">
+        @if (ViewData.ModelState["DOB0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="DOB">Tanggal Lahir</label>
+            <input type="text" id="DOB" name="DETAIL.DOB" value="@Html.DisplayFor(model => model.DETAIL.DOB)" class="form-control" @vsReadonlyTextbox data-inputmask="@vsDateFormat" data-mask />
+
+            
+            @if (ViewData.ModelState["DOB1"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("DOB1")
+                    </label>
+            }
+            @if (ViewData.ModelState["DOB2"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("DOB2")
+                    </label>
+            }
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-xs-12 -->
+</div>
+
+<hr />
+<h3 class="box-title">Alamat Siswa</h3>
+@{Html.RenderPartial("_InputsADDRESS");}
+<hr />
+
+<div class="row">
+    <div class="col-xs-12">
+        @if (ViewData.ModelState["RELIGION_ID0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="RELIGION_ID">Agama</label>
+                <select id="RELIGION_ID" name="DETAIL.RELIGION_ID" class="form-control select2" data-placeholder="Select Agama" style="width: 100%;" @vsReadonlyTextbox>
+                    <option selected value=""></option>
+                    @if (ViewBag.RELIGION != null)
+                    {
+                        foreach (var item in ViewBag.RELIGION)
+                        {
+
+                            if (Model.DETAIL.RELIGION_ID == item.ID)
+                            {<option selected value="@item.ID">@item.LOV_DESC</option> }
+                            else
+                            {<option value="@item.ID">@item.LOV_DESC</option> }
+                        }
+                    }
+                </select>
+
+            @if (ViewData.ModelState["RELIGION_ID1"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("RELIGION_ID1")
+                    </label>
+            }
+            @if (ViewData.ModelState["RELIGION_ID2"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("RELIGION_ID2")
+                    </label>
+            }
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-xs-12 -->
+</div><!-- /.row -->
+
+<div class="row">
+    <div class="col-xs-12">
+        @if (ViewData.ModelState["CHILD_SEQ0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="CHILD_SEQ">Anak Ke</label>
+            <input type="text" id="CHILD_SEQ" name="DETAIL.CHILD_SEQ" value="@Html.DisplayFor(model => model.DETAIL.CHILD_SEQ)" class="form-control data-mask-integer"  @vsReadonlyTextbox />
+
+            @if (ViewData.ModelState["CHILD_SEQ1"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("CHILD_SEQ1")
+                    </label>
+            }
+            @if (ViewData.ModelState["CHILD_SEQ2"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("CHILD_SEQ2")
+                    </label>
+            }
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-xs-12 -->
+</div><!-- /.row -->
+<div class="row">
+    <div class="col-xs-12">
+        @if (ViewData.ModelState["CHILD_QTY0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="CHILD_QTY">Dari Jumlah Anak</label>
+            <input type="text" id="CHILD_QTY" name="DETAIL.CHILD_QTY" value="@Html.DisplayFor(model => model.DETAIL.CHILD_QTY)" class="form-control data-mask-integer"  @vsReadonlyTextbox />
+
+            @if (ViewData.ModelState["CHILD_QTY1"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("CHILD_QTY1")
+                    </label>
+            }
+            @if (ViewData.ModelState["CHILD_QTY2"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("CHILD_QTY2")
+                    </label>
+            }
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-xs-12 -->
+</div><!-- /.row -->
+<div class="row">
+    <div class="col-xs-12">
+        @if (ViewData.ModelState["WEIGHT_KG0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="WEIGHT_KG">Berat Badan (Kg)</label>
+            <input type="text" id="WEIGHT_KG" name="DETAIL.WEIGHT_KG" value="@Html.DisplayFor(model => model.DETAIL.WEIGHT_KG)" class="form-control data-mask-integer"  @vsReadonlyTextbox />
+
+            @if (ViewData.ModelState["WEIGHT_KG1"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("WEIGHT_KG1")
+                    </label>
+            }
+            @if (ViewData.ModelState["WEIGHT_KG2"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("WEIGHT_KG2")
+                    </label>
+            }
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-xs-12 -->
+</div><!-- /.row -->
+<div class="row">
+    <div class="col-xs-12">
+        @if (ViewData.ModelState["HEIGHT_CM0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="HEIGHT_CM">Tinggi Badan (cm)</label>
+            <input type="text" id="HEIGHT_CM" name="DETAIL.HEIGHT_CM" value="@Html.DisplayFor(model => model.DETAIL.HEIGHT_CM)" class="form-control data-mask-integer"  @vsReadonlyTextbox />
+
+            @if (ViewData.ModelState["HEIGHT_CM1"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("HEIGHT_CM1")
+                    </label>
+            }
+            @if (ViewData.ModelState["HEIGHT_CM2"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("HEIGHT_CM2")
+                    </label>
+            }
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-xs-12 -->
+</div><!-- /.row -->
+
+<div class="row">
+    <div class="col-xs-12">
+        @if (ViewData.ModelState["BLOOD_TYPE_ID0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="BLOOD_TYPE_ID">Golongan Darah</label>
+                <select id="BLOOD_TYPE_ID" name="DETAIL.BLOOD_TYPE_ID" class="form-control select2" data-placeholder="Select Golongan Darah" style="width: 100%;" @vsReadonlyTextbox>
+                    <option selected value=""></option>
+                    @if (ViewBag.BLOODTYPE != null)
+                    {
+                        foreach (var item in ViewBag.BLOODTYPE)
+                        {
+
+                            if (Model.DETAIL.BLOOD_TYPE_ID == item.ID)
+                            {<option selected value="@item.ID">@item.LOV_DESC</option> }
+                            else
+                            {<option value="@item.ID">@item.LOV_DESC</option> }
+                        }
+                    }
+                </select>
+
+            @if (ViewData.ModelState["BLOOD_TYPE_ID1"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("BLOOD_TYPE_ID1")
+                    </label>
+            }
+            @if (ViewData.ModelState["BLOOD_TYPE_ID2"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("BLOOD_TYPE_ID2")
+                    </label>
+            }
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-xs-12 -->
+</div><!-- /.row -->
+
+<div class="row">
+    <div class="col-xs-12">
+        @if (ViewData.ModelState["MEDICAL_STORY10"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="MEDICAL_STORY1">Penyakit yang pernah diderita/alergi/penanganan khusus</label>
+
+            <div>
+                <input type="text" id="MEDICAL_STORY1" name="DETAIL.MEDICAL_STORY1" value="@Html.DisplayFor(model => model.DETAIL.MEDICAL_STORY1)" class="form-control" maxlength = "50" @vsReadonlyTextbox />
+                @if (ViewData.ModelState["MEDICAL_STORY11"] != null)
+                {
+                        <label class="control-label" for="inputError">
+                        <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("MEDICAL_STORY11")
+                        </label>
+                }
+                @if (ViewData.ModelState["MEDICAL_STORY12"] != null)
+                {
+                        <label class="control-label" for="inputError">
+                        <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("MEDICAL_STORY12")
+                        </label>
+                }
+            </div> <!--MEDICAL_STORY1 -->
+
+            <div>
+                <input type="text" id="MEDICAL_STORY2" name="DETAIL.MEDICAL_STORY2" value="@Html.DisplayFor(model => model.DETAIL.MEDICAL_STORY2)" class="form-control" maxlength = "50" @vsReadonlyTextbox />
+                @if (ViewData.ModelState["MEDICAL_STORY21"] != null)
+                {
+                        <label class="control-label" for="inputError">
+                        <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("MEDICAL_STORY21")
+                        </label>
+                }
+                @if (ViewData.ModelState["MEDICAL_STORY22"] != null)
+                {
+                        <label class="control-label" for="inputError">
+                        <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("MEDICAL_STORY22")
+                        </label>
+                }
+            </div> <!--MEDICAL_STORY2 -->
+
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-xs-12 -->
+</div><!-- /.row -->
+

@@ -1,0 +1,22 @@
+﻿@model APPBASE.Models.Transaction_indetailVM
+@using APPBASE.Helpers
+@using APPBASE.Models
+@using APPBASE.Svcbiz
+
+<div class="row">
+    <div class="col-xs-6">
+        @{Html.RenderPartial("_Inputs_Mainstudentinfo");}
+    </div> <!-- <div class="col-xs-6"> -->
+    <div class="col-xs-6">
+        @if (Model.MONTHLY_INST.DTA_STS == valFLAG.FLAG_DTA_STS_CREATE)
+        {
+            Html.RenderPartial("~/Views/Transaction_in/1SPPDenda/_InputsSPP_Trncreate.cshtml");
+        }
+        else {
+            Html.RenderPartial("~/Views/Transaction_in/1SPPDenda/_InputsSPP_Trncreate.cshtml");
+        }
+    </div> <!-- <div class="col-xs-6"> -->
+</div><!-- /.row -->
+
+@{Html.RenderPartial("~/Views/Transaction_in/_Inputs_Trnhist.cshtml");}
+

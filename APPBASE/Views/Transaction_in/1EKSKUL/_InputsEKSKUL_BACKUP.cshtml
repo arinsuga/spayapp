@@ -1,0 +1,16 @@
+﻿@model APPBASE.Models.Transaction_indetailVM
+@using APPBASE.Helpers
+@using APPBASE.Models
+
+
+@if (Model.MONTHLY_INST.INST_STS != 2)
+{
+    <span>@{Html.RenderPartial("~/Views/Transaction_in/1EKSKUL/_InputsEKSKUL_Main.cshtml");}</span>
+}
+
+@if (Model.MONTHLY_INST.INST_STS == 2)
+{
+    <span>@{Html.RenderPartial("~/Views/Transaction_in/1EKSKUL/_LUNAS.cshtml");}</span>
+}
+
+<hr />

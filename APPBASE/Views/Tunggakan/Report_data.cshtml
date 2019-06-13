@@ -1,0 +1,76 @@
+﻿@model APPBASE.Models.ReportinVM
+
+@using APPBASE.Helpers
+@using APPBASE.Svcutil
+@using APPBASE.Svcbiz
+
+<!-- title row -->
+<div class="row">
+    <div class="col-xs-12">
+        <h2 class="page-header">
+            <div style="text-align:center;">
+                <div>DATA TUNGGAKAN SISWA</div>
+                <div>YAYASAN PENDIDIKAN</div>
+                <div>TAHUN AJARAN @Model.CACHE_YEAR_CODE</div>
+            </div>
+        </h2>
+    </div><!-- /.col -->
+</div>
+
+<div class="row">
+    <div class="col-xs-12 table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>NO</th>
+                    <th>NIS</th>
+                    <th>Nama</th>
+                    
+                    <th>SPP</th>
+                    <th>MID GANJIL</th>
+                    <th>MID GENAP</th>
+                    <th>SMT GANJIL</th>
+                    <th>SMT GENAP</th>
+                    <th>D.ULANG</th>
+                    <th>UAT</th>
+                    <th>U.PANGKAL</th>
+
+                    <th>EKSKUL</th>
+                    <th>PRAKERIN</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @if (Model == null) {
+                    <tr>
+                        <td colspan="8">@{Html.RenderPartial("_PartialEmpty");}</td>
+                    </tr>
+                }
+
+                @{int n = 0;}
+
+                @foreach (var item in Model.TUNGGAKAN)
+                {
+                    n++;
+                    
+                    <tr>
+                        <td>@n</td>
+                        <td>@Html.DisplayFor(modelItem => item.NIS)</td>
+                        <td>@Html.DisplayFor(modelItem => item.NAME)</td>
+                        <td>@if (item.TRN_AMOUNT_SPP > 0) { <span>Rp.</span> <span class="pull-right">@hlpConvertionAndFormating.ConvertDecimalToStringFmtThousand(item.TRN_AMOUNT_SPP)</span> }</td>
+                        <td>@if (item.TRN_AMOUNT_MIDGANJIL > 0) { <span>Rp.</span> <span class="pull-right">@hlpConvertionAndFormating.ConvertDecimalToStringFmtThousand(item.TRN_AMOUNT_MIDGANJIL)</span> }</td>
+                        <td>@if (item.TRN_AMOUNT_MIDGENAP > 0) { <span>Rp.</span> <span class="pull-right">@hlpConvertionAndFormating.ConvertDecimalToStringFmtThousand(item.TRN_AMOUNT_MIDGENAP)</span> }</td>
+                        <td>@if (item.TRN_AMOUNT_SEMGANJIL > 0) { <span>Rp.</span> <span class="pull-right">@hlpConvertionAndFormating.ConvertDecimalToStringFmtThousand(item.TRN_AMOUNT_SEMGANJIL)</span> }</td>
+                        <td>@if (item.TRN_AMOUNT_SEMGENAP > 0) { <span>Rp.</span> <span class="pull-right">@hlpConvertionAndFormating.ConvertDecimalToStringFmtThousand(item.TRN_AMOUNT_SEMGENAP)</span> }</td>
+                        <td>@if (item.TRN_AMOUNT_DU > 0) { <span>Rp.</span> <span class="pull-right">@hlpConvertionAndFormating.ConvertDecimalToStringFmtThousand(item.TRN_AMOUNT_DU)</span> }</td>
+                        <td>@if (item.TRN_AMOUNT_UAT > 0) { <span>Rp.</span> <span class="pull-right">@hlpConvertionAndFormating.ConvertDecimalToStringFmtThousand(item.TRN_AMOUNT_UAT)</span> }</td>
+                        <td>@if (item.TRN_AMOUNT_UPANGKAL > 0) { <span>Rp.</span> <span class="pull-right">@hlpConvertionAndFormating.ConvertDecimalToStringFmtThousand(item.TRN_AMOUNT_UPANGKAL)</span> }</td>
+                        <td>@if (item.TRN_AMOUNT_EKSKUL > 0) { <span>Rp.</span> <span class="pull-right">@hlpConvertionAndFormating.ConvertDecimalToStringFmtThousand(item.TRN_AMOUNT_EKSKUL)</span> }</td>
+                        <td>@if (item.TRN_AMOUNT_PRAKERIN > 0) { <span>Rp.</span> <span class="pull-right">@hlpConvertionAndFormating.ConvertDecimalToStringFmtThousand(item.TRN_AMOUNT_PRAKERIN)</span> }</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div><!-- /.col -->
+</div>
+

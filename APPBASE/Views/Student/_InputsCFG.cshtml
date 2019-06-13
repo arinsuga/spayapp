@@ -1,0 +1,43 @@
+﻿@model APPBASE.Models.StudentVM
+@using APPBASE.Helpers
+@using APPBASE.Svcbiz
+
+@{string vsErrClass = "";}
+@{string vsDisableButton = "";}
+@{Boolean isShowDropdown = true;}
+@{string vsReadonlyTextboxKey = "Readonly";}
+@{string vsReadonlyTextbox = "";}
+@if (ViewBag.CRUD_type == hlpFlags_CRUDOption.CREATE) { vsReadonlyTextboxKey = ""; }
+@if ((ViewBag.CRUD_type == hlpFlags_CRUDOption.VIEW) || (ViewBag.CRUD_type == hlpFlags_CRUDOption.DELETE)) { vsDisableButton = "disabled"; vsReadonlyTextbox = "Readonly"; isShowDropdown = false; }
+@{string vsDateFormat = "'alias': 'dd/mm/yyyy'";}
+
+<div class="row">
+    <div class="col-xs-12">
+        @if (ViewData.ModelState["CLASSROOM_ID0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="CLASSROOM_ID">Kelas</label>
+                <select id="CLASSROOM_ID" name="DETAIL.CLASSROOM_ID" class="form-control select2" data-placeholder="Pilih Kelas" style="width: 100%;" @vsReadonlyTextbox>
+                    <option selected value=""></option>
+                    @foreach (var item in ViewBag.CLASSROOM)
+                    {
+
+                        if (Model.DETAIL.CLASSROOM_ID == item.ID) {<option selected value="@item.ID">@item.CLASSROOM_DESC</option> }
+                        else {<option value="@item.ID">@item.CLASSROOM_DESC</option> }
+                    }
+                </select>
+
+            @if (ViewData.ModelState["CLASSROOM_ID1"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("CLASSROOM_ID1")
+                    </label>
+            }
+            @if (ViewData.ModelState["CLASSROOM_ID2"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("CLASSROOM_ID2")
+                    </label>
+            }
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-xs-12 -->
+</div><!-- /.row -->

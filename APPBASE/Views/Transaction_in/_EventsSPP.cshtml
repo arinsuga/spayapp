@@ -1,0 +1,99 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+        /*=========================================
+        INITIALIZE
+        =========================================*/
+        doSearchAbleTable('#searchValue', '', '.SEARCHABLE_ROWS');
+        $("[data-mask]").inputmask(); //Optional if contains date field(s)
+        inputInteger();
+        inputDecimal();
+        $(".select2").select2();
+        if ($("#TRND_AMOUNTBASE_S").val() != "") {
+            formatNumberDecimal("#TRND_AMOUNTBASE_S");
+        } //End if ($("#TRND_AMOUNTBASE_S").val() != "")
+        if ($("#TRND_AMOUNT_S").val() != "") {
+            formatNumberDecimal("#TRND_AMOUNT_S");
+        } //End if ($("#TRND_AMOUNT_S").val() != "")
+
+
+
+        /*=========================================
+        EVENTS-INPUT
+        =========================================*/
+        //MONTHSPP3
+        $('input[id=MONTHSPP3]').keyup(function () {
+            if ($(this).val() > 12) {
+                $(this).val(12);
+            }
+            if ($(this).val() < 1) {
+                $(this).val(1);
+            }
+        });
+        $("#TRND_AMOUNTBASE_S").focusout(function () {
+            formatNumberDecimal("#TRND_AMOUNTBASE_S");
+        });
+        $("#TRND_AMOUNT_S").focusout(function () {
+            formatNumberDecimal("#TRND_AMOUNT_S");
+        });
+
+        /*=========================================
+        EVENTS-BUTTON
+        =========================================*/
+        //Save
+        $(".btnSave").click(function () {
+            $("#ActionID").val("1");
+            $("#Transaction_in").submit();
+        });
+        //Cancel
+        $(".btnCancel").click(function () {
+            $("#ActionID").val("2");
+            $("#Transaction_in").submit();
+        });
+        //Add Transaction detail
+        $("#btnTrintype_add").click(function () {
+            $("#ActionID").val("3");
+            $("#Transaction_in").submit();
+        });
+        //Edit Transaction detail
+        $(".btnTrintype_edit").click(function () {
+            var sActionID = $(this).attr("value");
+            //alert("class btnTrintype_edit : " + sActionID);
+
+            $("#ActionID").val("3");
+            $("#TRINTYPE_ID").val(sActionID);
+            $("#Transaction_in").submit();
+        });
+        //Delete Transaction detail
+        $(".btnTrintype_delete").click(function () {
+            var sActionID = $(this).attr("value");
+            //alert("class btnTrintype_delete : " + sActionID);
+
+            $("#ActionID").val("4");
+            $("#TRINTYPE_ID").val(sActionID);
+            $("#Transaction_in").submit();
+        });
+
+        /*=========================================
+        EVENTS LOOKUP
+        =========================================*/
+        //LookUp [STUDENT_ID]
+        $(".LOOKUPROW").click(function () {
+            var vsID = $(this).children().children(".ID").val();
+            var vsCODE = $(this).children().children(".CODE").val();
+            var vsDESC = $(this).children().children(".DESC").val();
+            var vsOTHER = $(this).children().children(".OTHER").val();
+
+            var vsID_TAG = 'STUDENT_ID';
+            var vsCODE_TAG = '';
+            var vsDESC_TAG = 'STUDENT_NAME';
+            var vsOTHER_TAG = '';
+            if (isEmptyString(vsID_TAG) != true) { $('#' + vsID_TAG).val(vsID); }
+            if (isEmptyString(vsCODE_TAG) != true) { $('#' + vsCODE_TAG).val(vsCODE); }
+            if (isEmptyString(vsDESC_TAG) != true) { $('#' + vsDESC_TAG).val(vsDESC); }
+            if (isEmptyString(vsOTHER_TAG) != true) { $('#' + vsOTHER_TAG).val(vsOTHER); }
+            $('#DialogLookup').modal('hide')
+        }); //End  $(".LOOKUPROW").click()
+
+    });                  //End $(document).ready
+</script>
+

@@ -1,0 +1,43 @@
+﻿@using APPBASE.Helpers
+
+<!-- Table row -->
+<div class="row">
+    <div class="col-xs-12 table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Tanggal Pembayaran</th>
+                    <th>Jenis Pembayaran</th>
+                    <th>Rincian Pembayaran</th>
+                    <th>Jumlah Pembayaran</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (ViewBag.TRINHIST == null)
+                {
+                    <tr>
+                        <td colspan="4">Tidak ada transaksi</td>
+                    </tr>
+                }
+                @if (ViewBag.TRINHIST != null)
+                {
+                    foreach (var item in ViewBag.TRINHIST)
+                    {
+                        <tr>
+                            <td>@hlpConvertionAndFormating.ConvertDateToStringDayIDLongFmt(item.TRN_DT)</td>
+                            <td>@item.TRINTYPE_DESC</td>
+                            <td>@item.TRND_DESC</td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        Rp. <span class="pull-right">@hlpConvertionAndFormating.ConvertDecimalToStringFmtThousand(item.TRND_AMOUNT)</span>                                    
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div><!-- /.col -->
+</div><!-- /.row -->

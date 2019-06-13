@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SpayUp</title>
+    <description>Apps for School Payment System</description>
+    <link>http://arinsuga.com/spayup/</link>
+    <atom:link href="http://arinsuga.com/spayup/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Wed, 07 Nov 2018 15:24:11 +0700</pubDate>
+    <lastBuildDate>Wed, 07 Nov 2018 15:24:11 +0700</lastBuildDate>
+    <generator>Jekyll v3.6.3</generator>
+    
+  </channel>
+</rss>

@@ -1,0 +1,61 @@
+﻿@model APPBASE.Models.StudentVM
+@using APPBASE.Helpers
+@using APPBASE.Svcapp
+
+@{string vsErrClass = "";}
+@{string vsDisableButton = "";}
+@{Boolean isShowDropdown = true;}
+@{string vsReadonlyTextboxKey = "Readonly";}
+@{string vsReadonlyTextbox = "";}
+@if (ViewBag.CRUD_type == hlpFlags_CRUDOption.CREATE) { vsReadonlyTextboxKey = ""; }
+@if ((ViewBag.CRUD_type == hlpFlags_CRUDOption.VIEW) || (ViewBag.CRUD_type == hlpFlags_CRUDOption.DELETE)) { vsDisableButton = "disabled"; vsReadonlyTextbox = "Readonly"; isShowDropdown = false; }
+@{string vsDateFormat = "'alias': 'dd/mm/yyyy'";}
+
+
+<div class="row">
+    <div class="col-xs-12">
+        @if (ViewData.ModelState["NIS0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="NIS">Nomor Induk Siswa</label>
+            <input type="text" id="NIS" name="DETAIL.NIS" value="@Html.DisplayFor(model => model.DETAIL.NIS)" class="form-control" maxlength = "20" @vsReadonlyTextbox />
+
+            @if (ViewData.ModelState["NIS1"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("NIS1")
+                    </label>
+            }
+            @if (ViewData.ModelState["NIS2"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("NIS2")
+                    </label>
+            }
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-xs-12 -->
+</div><!-- /.row -->
+
+<div class="row">
+    <div class="col-xs-12">
+        @if (ViewData.ModelState["NAME0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="NAME">Nama Lengkap Siswa</label>
+            <input type="text" id="NAME" name="DETAIL.NAME" value="@Html.DisplayFor(model => model.DETAIL.NAME)" class="form-control" maxlength = "60" @vsReadonlyTextbox />
+
+            @if (ViewData.ModelState["NAME1"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("NAME1")
+                    </label>
+            }
+            @if (ViewData.ModelState["NAME2"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("NAME2")
+                    </label>
+            }
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-xs-12 -->
+</div><!-- /.row -->
+
+

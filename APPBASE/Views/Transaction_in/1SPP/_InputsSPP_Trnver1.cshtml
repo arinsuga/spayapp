@@ -1,0 +1,55 @@
+﻿@model APPBASE.Models.Transaction_indetailVM
+@using APPBASE.Helpers
+@using APPBASE.Models
+
+@{string vsErrClass = "";}
+@{string vsDisableButton = "";}
+@{Boolean isShowDropdown = true;}
+@{string vsReadonlyTextboxKey = "Readonly";}
+@{string vsReadonlyTextbox = "";}
+@if (ViewBag.CRUD_type == hlpFlags_CRUDOption.CREATE) { vsReadonlyTextboxKey = ""; }
+@if ((ViewBag.CRUD_type == hlpFlags_CRUDOption.VIEW) || (ViewBag.CRUD_type == hlpFlags_CRUDOption.DELETE)) { vsDisableButton = "disabled"; vsReadonlyTextbox = "Readonly"; isShowDropdown = false; }
+@{string vsDateFormat = "'alias': 'dd/mm/yyyy'";}
+@{Boolean isFirst = true;}
+
+<div class="row">
+    <div class="col-xs-12">
+        @if (ViewData.ModelState["TRND_AMOUNT0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="TRND_AMOUNT">SPP Bulan : @Html.DisplayFor(model => model.MONTHSPP1.MONTHSPP_SHORTDESC) s/d Bulan</label>
+
+            @if (ViewData.ModelState["MONTHSPP20"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+            <div class="form-group @vsErrClass">
+                    <select id="MONTHSPP2" name="MONTHSPP2" class="form-control select2" data-placeholder="Pilih Bulan" style="width: 100%;" @vsReadonlyTextbox>
+                        <option selected value=""></option>
+                        @foreach (var item in Model.MONTHLY_MONTHS)
+                        {
+
+                            if (isFirst)
+                            {
+                                isFirst = false;
+                                <option selected value="@item.MONTHSPP_SEQNO">@item.MONTHSPP_SHORTDESC</option>
+                            }
+                            else {<option value="@item.MONTHSPP_SEQNO">@item.MONTHSPP_SHORTDESC</option> }
+                        }
+                    </select>
+
+                @if (ViewData.ModelState["MONTHSPP21"] != null)
+                {
+                        <label class="control-label" for="inputError">
+                        <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("MONTHSPP21")
+                        </label>
+                }
+                @if (ViewData.ModelState["MONTHSPP22"] != null)
+                {
+                        <label class="control-label" for="inputError">
+                        <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("MONTHSPP22")
+                        </label>
+                }
+            </div> <!-- /.form-group -->
+
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-xs-12 -->
+
+</div><!-- /.row -->
+

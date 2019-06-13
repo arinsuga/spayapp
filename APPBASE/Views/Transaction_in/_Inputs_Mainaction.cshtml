@@ -1,0 +1,53 @@
+﻿@model APPBASE.Models.Transaction_indetailVM
+@using APPBASE.Helpers
+
+@{string vsErrClass = "";}
+@{string vsDisableButton = "";}
+@{Boolean isShowDropdown = true;}
+@{string vsReadonlyTextboxKey = "Readonly";}
+@{string vsReadonlyTextbox = "";}
+@if (ViewBag.CRUD_type == hlpFlags_CRUDOption.CREATE) { vsReadonlyTextboxKey = ""; }
+@if ((ViewBag.CRUD_type == hlpFlags_CRUDOption.VIEW) || (ViewBag.CRUD_type == hlpFlags_CRUDOption.DELETE)) { vsDisableButton = "disabled"; vsReadonlyTextbox = "Readonly"; isShowDropdown = false; }
+@{string vsDateFormat = "'alias': 'dd/mm/yyyy'";}
+
+<strong>Tanggal Transaksi</strong> : @Model.getTRN_DT()
+<div class="row">
+    <div class="col-xs-12">
+        @if (ViewData.ModelState["TRINTYPE_ID0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <div>
+                <select id="TRINTYPE_ID" name="TRINTYPE_ID" class="form-control select2" data-placeholder="Jenis Pembayaran" @vsReadonlyTextbox>
+                    <option selected value=""></option>
+                    @if (ViewBag.TRINTYPE != null)
+                    {
+                        foreach (var item in ViewBag.TRINTYPE)
+                        {
+
+                            if (Model.TRINTYPE_ID == item.ID)
+                            {<option selected value="@item.ID">@item.TRINTYPE_SHORTDESC</option> }
+                            else
+                            {<option value="@item.ID">@item.TRINTYPE_SHORTDESC</option> }
+                        }
+                    }
+                </select>
+
+                @if (ViewData.ModelState["TRINTYPE_ID1"] != null)
+                {
+                        <label class="control-label" for="inputError">
+                        <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("TRINTYPE_ID1")
+                        </label>
+                }
+                @if (ViewData.ModelState["TRINTYPE_ID2"] != null)
+                {
+                        <label class="control-label" for="inputError">
+                        <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("TRINTYPE_ID2")
+                        </label>
+                }
+            </div>
+            <div>
+                <button id="btnTrintype_add" type="button" class="btn btn-block btn-success btn-flat">Create</button>
+            </div>
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-xs-12 -->
+</div><!-- /.row -->
+

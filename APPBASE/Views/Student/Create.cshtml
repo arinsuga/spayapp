@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Data Siswa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section includeBOTTOM {
+    @Scripts.Render("~/bundles/JSInputMask")
+}
+
+<div class="col-sm-12 col-md-4">
+    @using (Html.BeginForm("Index", "Student", FormMethod.Post, new { id = "frmFilter" }))
+    {
+        Html.RenderPartial("Filter");
+    }
+</div> <!-- /.col-sm-12 col-md-4 -->
+
+<div class="col-sm-12 col-md-8">
+    @using (Html.BeginForm("Create", "Student", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        Html.RenderPartial("Create_");
+    }
+</div> <!-- /.col-sm-12 col-md-8 -->
+
+<!-- Modal -->
+@{Html.RenderPartial("_PartialDialogLookup");}
+
+
+@section scripts {
+
+<!-- Modal -->
+@{Html.RenderPartial("_Events");}
+
+}

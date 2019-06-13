@@ -1,0 +1,78 @@
+﻿@model APPBASE.Models.ReportinVM
+
+@using APPBASE.Helpers
+@using APPBASE.Svcutil
+@using APPBASE.Svcbiz
+
+@{Boolean isNewgroup = true; decimal? nSubtotal = 0; decimal? nAlltotal = 0; int nNumber = 0;}
+@{string sPrintWidth = "700pt";}
+
+<!-- title Table -->
+<table width="@sPrintWidth">
+<!-- title row -->
+    <tr><td colspan="5" style="text-align:center;">REKAP TOTAL SETORAN ADMINISTRASI</td></tr>
+    <tr><td colspan="5" style="text-align:center;">YAYASAN PENDIDIKAN</td></tr>
+    <tr><td colspan="5" style="text-align:center;">TAHUN AJARAN @Html.DisplayFor(fld => fld.YEAR_SHORTDESC)</td></tr>
+    <tr><td colspan="5">&nbsp;</td></tr>
+</table>
+
+@if (Model.RECAP2 == null)
+{
+    <table>
+        <tr>
+            <td style="text-align:center;">No.</td>
+            <td style="text-align:center;">Nama Siswa</td>
+            <td style="text-align:center;">Kelas</td>
+            <td style="text-align:center;">Rincian Bayar</td>
+            <td style="text-align:center;">Jumlah</td>
+        </tr>
+        <tr><td>@{Html.RenderPartial("_PartialEmpty");}</td></tr>
+    </table>
+}
+
+
+@foreach (var Group in Model.RECAP2.GroupBy(fld => fld.TRINTYPE_ID))
+{
+<table width="@sPrintWidth">
+    <tr>
+        <td colspan="3">Pembayaran @Group.FirstOrDefault().TRINTYPE_SHORTDESC</td>
+        <td colspan="2" style="text-align:right;">@hlpConvertionAndFormating.ConvertDateToStringDayIDLongFmt(Model.TRN_DT)</td>
+    </tr>
+    <tr>
+        <td style="text-align:center;">No.</td>
+        <td style="text-align:center;">Nama Siswa</td>
+        <td style="text-align:center;">Kelas</td>
+        <td style="text-align:center;">Rincian Bayar</td>
+        <td style="text-align:center;">Jumlah</td>
+    </tr>
+    @{nSubtotal = 0; nNumber = 0;}
+    @foreach (var item in Group.OrderBy(fld => fld.CLASSLEVEL_NUM).
+        ThenBy(fld => fld.STUDENT_NAME).ThenBy(fld => fld.TRN_DT).ToList())
+    {
+
+        nNumber++;
+        <tr>
+            <td style="text-align:right; padding-right:2pt;">@nNumber</td>
+            <td style="padding-left:2pt;">@Html.DisplayFor(modelitem => item.STUDENT_NAME)</td>
+            <td style="padding-left:2pt;">@Html.DisplayFor(modelitem => item.CLASSROOM_SHORTDESC)</td>
+            <td style="padding-left:2pt;">@Html.DisplayFor(modelitem => item.TRND_DESC)</td>
+            <td style="text-align:right; padding-right:5pt;">Rp. @hlpConvertionAndFormating.ConvertDecimalToStringFmtThousand(item.TRND_AMOUNT)</td>
+        </tr>
+                                
+                                
+        nSubtotal = nSubtotal + item.TRND_AMOUNT;
+        nAlltotal = nAlltotal + item.TRND_AMOUNT;
+
+    }
+    <tr><td colspan="5" style="text-align:right; padding-right:5pt;">Sub Total Rp. @hlpConvertionAndFormating.ConvertDecimalToStringFmtThousand(nSubtotal)</td></tr>
+    <tr><td colspan="5">&nbsp;</td></tr>
+</table>
+
+}
+
+<table width="@sPrintWidth">
+    <tr><td colspan="5" style="text-align:right;">TOTAL KESELURUHAN PENERIMAAN Rp. @hlpConvertionAndFormating.ConvertDecimalToStringFmtThousand(nAlltotal)</td></tr>
+</table>
+
+
+

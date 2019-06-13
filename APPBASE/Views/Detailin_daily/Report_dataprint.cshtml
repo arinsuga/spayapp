@@ -1,0 +1,51 @@
+﻿@model APPBASE.Models.ReportinVM
+
+@using APPBASE.Helpers
+@using APPBASE.Svcutil
+@using APPBASE.Svcbiz
+
+@{string sPrintWidth = "700pt";}
+
+<!-- title Table -->
+<table width="@sPrintWidth">
+    <tr><td colspan="5" style="text-align:center;">DATA PEMBAYARAN SISWA @Model.CLASSTYPE_CODE.ToUpper()</td></tr>
+    <tr><td colspan="5" style="text-align:center;">YAYASAN PENDIDIKAN</td></tr>
+    <tr><td colspan="5" style="text-align:center;">TAHUN AJARAN @Model.CACHE_YEAR_CODE</td></tr>
+    <tr><td colspan="5">&nbsp;</td></tr>
+</table>
+
+<table width="@sPrintWidth">
+<!-- Table Header -->
+    <tr>
+        <td style="text-align:center;">NIS</td>
+        <td style="text-align:center;">Nama</td>
+        <td style="text-align:center;"><div>Jenis</div><div>Pembayaran</div></td>
+        <td style="text-align:center;"><div>Bulan</div><div>Bayar</div></td>
+        <td style="text-align:center;"><div>Tahun</div><div>Bayar</div></td>
+        <td style="text-align:center;"><div>Tanggal</div><div>Bayar</div></td>
+        <td style="text-align:center;">JUMLAH BAYAR</td>
+        <td style="text-align:center;">KETERANGAN</td>
+    </tr>
+
+    @if (Model == null) {
+        <tr>
+            <td colspan="8">@{Html.RenderPartial("_PartialEmpty");}</td>
+        </tr>
+    }
+
+    @foreach (var item in Model.DETAIL)
+    {
+                    
+        <tr>
+            <td style="padding-left:2pt;">@Html.DisplayFor(modelItem => item.STUDENT_NIS)</td>
+            <td style="padding-left:2pt;">@Html.DisplayFor(modelItem => item.STUDENT_NAME)</td>
+            <td style="padding-left:2pt;">@Html.DisplayFor(modelItem => item.TRINTYPE_SHORTDESC)</td>
+            <td style="padding-left:2pt;">@Html.DisplayFor(modelItem => item.TRN_DT.Value.Month)</td>
+            <td style="padding-left:2pt;">@Html.DisplayFor(modelItem => item.TRN_DT.Value.Year)</td>
+            <td style="padding-left:2pt;">@hlpConvertionAndFormating.ConvertDateToStringDateShortFmt(item.TRN_DT)</td>
+            <td style="padding-right:2pt; text-align:right;">Rp. @hlpConvertionAndFormating.ConvertDecimalToStringFmtThousand(item.TRND_AMOUNT)</td>
+            <td style="padding-left:2pt;">@Html.DisplayFor(modelItem => item.TRND_DESC)</td>
+        </tr>
+    }
+</table>
+

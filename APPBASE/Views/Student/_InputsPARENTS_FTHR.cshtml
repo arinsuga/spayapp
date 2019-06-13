@@ -1,0 +1,397 @@
+﻿@model APPBASE.Models.StudentVM
+@using APPBASE.Helpers
+
+@{string vsErrClass = "";}
+@{string vsDisableButton = "";}
+@{Boolean isShowDropdown = true;}
+@{string vsReadonlyTextboxKey = "Readonly";}
+@{string vsReadonlyTextbox = "";}
+@if (ViewBag.CRUD_type == hlpFlags_CRUDOption.CREATE) { vsReadonlyTextboxKey = ""; }
+@if ((ViewBag.CRUD_type == hlpFlags_CRUDOption.VIEW) || (ViewBag.CRUD_type == hlpFlags_CRUDOption.DELETE)) { vsDisableButton = "disabled"; vsReadonlyTextbox = "Readonly"; isShowDropdown = false; }
+@{string vsDateFormat = "'alias': 'dd/mm/yyyy'";}
+
+<div class="row">
+    <div class="col-xs-12">
+        @if (ViewData.ModelState["FTHR_NAME0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="FTHR_NAME">Nama Ayah Kandung / Wali</label>
+            <input type="text" id="FTHR_NAME" name="DETAIL.FTHR_NAME" value="@Html.DisplayFor(model => model.DETAIL.FTHR_NAME)" class="form-control" maxlength = "60" @vsReadonlyTextbox />
+
+            @if (ViewData.ModelState["FTHR_NAME1"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_NAME1")
+                    </label>
+            }
+            @if (ViewData.ModelState["FTHR_NAME2"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_NAME2")
+                    </label>
+            }
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-xs-12 -->
+</div><!-- /.row -->
+
+<div class="row">
+    <div class="col-xs-12">
+        @if (ViewData.ModelState["FTHR_RELIGION_ID0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="FTHR_RELIGION_ID">Agama</label>
+                <select id="FTHR_RELIGION_ID" name="DETAIL.FTHR_RELIGION_ID" class="form-control select2" data-placeholder="Select Agama" style="width: 100%;" @vsReadonlyTextbox>
+                    <option selected value=""></option>
+                    @if (ViewBag.RELIGION != null)
+                    {
+                        foreach (var item in ViewBag.RELIGION)
+                        {
+
+                            if (Model.DETAIL.FTHR_RELIGION_ID == item.ID)
+                            {<option selected value="@item.ID">@item.LOV_DESC</option> }
+                            else
+                            {<option value="@item.ID">@item.LOV_DESC</option> }
+                        }
+                    }
+                </select>
+
+            @if (ViewData.ModelState["FTHR_RELIGION_ID1"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_RELIGION_ID1")
+                    </label>
+            }
+            @if (ViewData.ModelState["FTHR_RELIGION_ID2"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_RELIGION_ID2")
+                    </label>
+            }
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-xs-12 -->
+</div><!-- /.row -->
+
+<div class="row">
+    <div class="col-sm-12 col-md-6">
+        @if (ViewData.ModelState["FTHR_POB0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="FTHR_POB">Tempat Lahir</label>
+            <input type="text" id="FTHR_POB" name="DETAIL.FTHR_POB" value="@Html.DisplayFor(model => model.DETAIL.FTHR_POB)" class="form-control" maxlength = "20" @vsReadonlyTextbox />
+
+            @if (ViewData.ModelState["FTHR_POB1"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_POB1")
+                    </label>
+            }
+            @if (ViewData.ModelState["FTHR_POB2"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_POB2")
+                    </label>
+            }
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-sm-12 col-md-6 -->
+
+    <div class="col-sm-12 col-md-6">
+        @if (ViewData.ModelState["FTHR_DOB0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="FTHR_DOB">Tanggal Lahir</label>
+            <input type="text" id="FTHR_DOB" name="DETAIL.FTHR_DOB" value="@Html.DisplayFor(model => model.DETAIL.FTHR_DOB)" class="form-control" @vsReadonlyTextbox data-inputmask="@vsDateFormat" data-mask />
+            @if (ViewData.ModelState["FTHR_DOB1"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_DOB1")
+                    </label>
+            }
+            @if (ViewData.ModelState["FTHR_DOB2"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_DOB2")
+                    </label>
+            }
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-sm-12 col-md-6 -->
+
+</div><!-- /.row -->
+
+<hr />
+
+<button type="button" id="FTHR_ADDR_SYNC" class="btn btn-flat"><i class="fa fa-copy"></i> Samakan Alamat</button>
+<div class="row">
+    <div class="col-sm-12 col-md-6">
+        @if (ViewData.ModelState["FTHR_HOMEPHONE0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="FTHR_HOMEPHONE">Telepon Rumah</label>
+            <input type="text" id="FTHR_HOMEPHONE" name="DETAIL.FTHR_HOMEPHONE" value="@Html.DisplayFor(model => model.DETAIL.FTHR_HOMEPHONE)" class="form-control" maxlength = "20" @vsReadonlyTextbox />
+
+            @if (ViewData.ModelState["FTHR_HOMEPHONE1"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_HOMEPHONE1")
+                    </label>
+            }
+            @if (ViewData.ModelState["FTHR_HOMEPHONE2"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_HOMEPHONE2")
+                    </label>
+            }
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-sm-12 col-md-6 -->
+
+    <div class="col-sm-12 col-md-6">
+        @if (ViewData.ModelState["FTHR_CELLPHONE0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="FTHR_CELLPHONE">HP</label>
+            <input type="text" id="FTHR_CELLPHONE" name="DETAIL.FTHR_CELLPHONE" value="@Html.DisplayFor(model => model.DETAIL.FTHR_CELLPHONE)" class="form-control" maxlength = "20" @vsReadonlyTextbox />
+
+            @if (ViewData.ModelState["FTHR_CELLPHONE1"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_CELLPHONE1")
+                    </label>
+            }
+            @if (ViewData.ModelState["FTHR_CELLPHONE2"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_CELLPHONE2")
+                    </label>
+            }
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-sm-12 col-md-6 -->
+</div><!-- /.row -->
+
+<div class="row">
+    <div class="col-sm-12">
+            @if (ViewData.ModelState["FTHR_ADDR_STREET10"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+            @if (ViewData.ModelState["FTHR_ADDR_STREET20"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+            <div class="form-group @vsErrClass">
+                    <label for="FTHR_ADDR_STREET1">Alamat</label>
+                    <div>
+                        <input type="text" id="FTHR_ADDR_STREET1" name="DETAIL.FTHR_ADDR_STREET1" value="@Html.DisplayFor(model => model.DETAIL.FTHR_ADDR_STREET1)" class="form-control" maxlength = "90" @vsReadonlyTextbox />
+                        @if (ViewData.ModelState["FTHR_ADDR_STREET11"] != null)
+                        {
+                                <label class="control-label" for="inputError">
+                                <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_ADDR_STREET11")
+                                </label>
+                        }
+                        @if (ViewData.ModelState["FTHR_ADDR_STREET12"] != null)
+                        {
+                                <label class="control-label" for="inputError">
+                                <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_ADDR_STREET12")
+                                </label>
+                        }
+                    </div> <!-- FTHR_ADDR_STREET1 -->
+                    <div>
+                        <input type="text" id="FTHR_ADDR_STREET2" name="DETAIL.FTHR_ADDR_STREET2" value="@Html.DisplayFor(model => model.DETAIL.FTHR_ADDR_STREET2)" class="form-control" maxlength = "90" @vsReadonlyTextbox />
+                        @if (ViewData.ModelState["FTHR_ADDR_STREET21"] != null)
+                        {
+                                <label class="control-label" for="inputError">
+                                <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_ADDR_STREET21")
+                                </label>
+                        }
+                        @if (ViewData.ModelState["FTHR_ADDR_STREET22"] != null)
+                        {
+                                <label class="control-label" for="inputError">
+                                <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_ADDR_STREET22")
+                                </label>
+                        }
+                    </div> <!-- FTHR_ADDR_STREET2 -->
+            </div> <!-- /.form-group -->
+    </div> <!-- /.col-sm-12 -->
+</div><!-- /.row -->
+
+<div class="row">
+    <div class="col-xs-12 col-md-6">
+        @if (ViewData.ModelState["FTHR_ADDR_CITY0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="FTHR_ADDR_CITY">Kota/Kabupaten</label>
+                <select id="FTHR_ADDR_CITY" name="DETAIL.FTHR_ADDR_CITY" class="form-control select2" data-placeholder="Select Kota/Kabupaten" style="width: 100%;" @vsReadonlyTextbox>
+                    <option selected value=""></option>
+                    @if (ViewBag.CITY != null)
+                    {
+                        foreach (var item in ViewBag.CITY)
+                        {
+
+                            if (Model.DETAIL.FTHR_ADDR_CITY == item.LOV_DESC)
+                            {<option selected value="@item.LOV_DESC">@item.LOV_DESC</option> }
+                            else
+                            {<option value="@item.LOV_DESC">@item.LOV_DESC</option> }
+                        }
+                    }
+                </select>
+
+            @if (ViewData.ModelState["FTHR_ADDR_CITY1"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_ADDR_CITY1")
+                    </label>
+            }
+            @if (ViewData.ModelState["FTHR_ADDR_CITY2"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_ADDR_CITY2")
+                    </label>
+            }
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-xs-12 col-md-6 -->
+
+    <div class="col-sm-12 col-md-6">
+        @if (ViewData.ModelState["FTHR_ADDR_ZIP0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="FTHR_ADDR_ZIP">Kode Pos</label>
+            <input type="text" id="FTHR_ADDR_ZIP" name="DETAIL.FTHR_ADDR_ZIP" value="@Html.DisplayFor(model => model.DETAIL.FTHR_ADDR_ZIP)" class="form-control data-mask-integer" maxlength = "5" @vsReadonlyTextbox />
+
+            @if (ViewData.ModelState["FTHR_ADDR_ZIP1"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_ADDR_ZIP1")
+                    </label>
+            }
+            @if (ViewData.ModelState["FTHR_ADDR_ZIP2"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_ADDR_ZIP2")
+                    </label>
+            }
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-xs-12 col-md-6 -->
+</div><!-- /.row -->
+
+<hr />
+
+<div class="row">
+    <div class="col-xs-12">
+        @if (ViewData.ModelState["FTHR_EDU_ID0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="FTHR_EDU_ID">Pendidikan Terakhir</label>
+                <select id="FTHR_EDU_ID" name="DETAIL.FTHR_EDU_ID" class="form-control select2" data-placeholder="Select Pendidikan Terakhir" style="width: 100%;" @vsReadonlyTextbox>
+                    <option selected value=""></option>
+                    @if (ViewBag.EDUCATION != null)
+                    {
+                        foreach (var item in ViewBag.EDUCATION)
+                        {
+
+                            if (Model.DETAIL.FTHR_EDU_ID == item.ID)
+                            {<option selected value="@item.ID">@item.LOV_DESC</option> }
+                            else
+                            {<option value="@item.ID">@item.LOV_DESC</option> }
+                        }
+                    }
+                </select>
+
+            @if (ViewData.ModelState["FTHR_EDU_ID1"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_EDU_ID1")
+                    </label>
+            }
+            @if (ViewData.ModelState["FTHR_EDU_ID2"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_EDU_ID2")
+                    </label>
+            }
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-xs-12 -->
+</div><!-- /.row -->
+
+<div class="row">
+    <div class="col-xs-12">
+        @if (ViewData.ModelState["FTHR_JOB_ID0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="FTHR_JOB_ID">Pekerjaan/Jabatan</label>
+                <select id="FTHR_JOB_ID" name="DETAIL.FTHR_JOB_ID" class="form-control select2" data-placeholder="Select Pekerjaan/Jabatan" style="width: 100%;" @vsReadonlyTextbox>
+                    <option selected value=""></option>
+                    @if (ViewBag.JOBTYPE != null)
+                    {
+                        foreach (var item in ViewBag.JOBTYPE)
+                        {
+
+                            if (Model.DETAIL.FTHR_JOB_ID == item.ID)
+                            {<option selected value="@item.ID">@item.LOV_DESC</option> }
+                            else
+                            {<option value="@item.ID">@item.LOV_DESC</option> }
+                        }
+                    }
+                </select>
+
+            @if (ViewData.ModelState["FTHR_JOB_ID1"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_JOB_ID1")
+                    </label>
+            }
+            @if (ViewData.ModelState["FTHR_JOB_ID2"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_JOB_ID2")
+                    </label>
+            }
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-xs-12 -->
+</div><!-- /.row -->
+
+<div class="row">
+    <div class="col-xs-12">
+        @if (ViewData.ModelState["FTHR_JOB_COMPANY0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="FTHR_JOB_COMPANY">Instansi/Perusahaan</label>
+            <input type="text" id="FTHR_JOB_COMPANY" name="DETAIL.FTHR_JOB_COMPANY" value="@Html.DisplayFor(model => model.DETAIL.FTHR_JOB_COMPANY)" class="form-control" maxlength = "60" @vsReadonlyTextbox />
+
+            @if (ViewData.ModelState["FTHR_JOB_COMPANY1"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_JOB_COMPANY1")
+                    </label>
+            }
+            @if (ViewData.ModelState["FTHR_JOB_COMPANY2"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_JOB_COMPANY2")
+                    </label>
+            }
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-xs-12 -->
+</div><!-- /.row -->
+
+
+<div class="row">
+    <div class="col-xs-12">
+        @if (ViewData.ModelState["FTHR_JOB_ADDR10"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        @if (ViewData.ModelState["FTHR_JOB_ADDR20"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="FTHR_JOB_ADDR1">Alamat Kantor</label>
+            <div>
+                <input type="text" id="FTHR_JOB_ADDR1" name="DETAIL.FTHR_JOB_ADDR1" value="@Html.DisplayFor(model => model.DETAIL.FTHR_JOB_ADDR1)" class="form-control" maxlength = "90" @vsReadonlyTextbox />
+                @if (ViewData.ModelState["FTHR_JOB_ADDR11"] != null)
+                {
+                        <label class="control-label" for="inputError">
+                        <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_JOB_ADDR11")
+                        </label>
+                }
+                @if (ViewData.ModelState["FTHR_JOB_ADDR12"] != null)
+                {
+                        <label class="control-label" for="inputError">
+                        <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_JOB_ADDR12")
+                        </label>
+                }
+            </div>
+            <div>
+                <input type="text" id="FTHR_JOB_ADDR2" name="DETAIL.FTHR_JOB_ADDR2" value="@Html.DisplayFor(model => model.DETAIL.FTHR_JOB_ADDR2)" class="form-control" maxlength = "90" @vsReadonlyTextbox />
+                @if (ViewData.ModelState["FTHR_JOB_ADDR21"] != null)
+                {
+                        <label class="control-label" for="inputError">
+                        <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_JOB_ADDR21")
+                        </label>
+                }
+                @if (ViewData.ModelState["FTHR_JOB_ADDR22"] != null)
+                {
+                        <label class="control-label" for="inputError">
+                        <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("FTHR_JOB_ADDR22")
+                        </label>
+                }
+            </div>
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-xs-12 -->
+</div><!-- /.row -->
+

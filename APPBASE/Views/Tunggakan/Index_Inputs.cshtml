@@ -1,0 +1,93 @@
+﻿@model APPBASE.Models.ReportinVM
+@using APPBASE.Helpers
+@using APPBASE.Svcutil
+
+@{string vsErrClass = "";}
+@{string vsDisableButton = "";}
+@{Boolean isShowDropdown = true;}
+@{string vsReadonlyTextboxKey = "Readonly";}
+@{string vsReadonlyTextbox = "";}
+@if (ViewBag.CRUD_type == hlpFlags_CRUDOption.CREATE) { vsReadonlyTextboxKey = ""; }
+@if ((ViewBag.CRUD_type == hlpFlags_CRUDOption.VIEW) || (ViewBag.CRUD_type == hlpFlags_CRUDOption.DELETE)) { vsDisableButton = "disabled"; vsReadonlyTextbox = "Readonly"; isShowDropdown = false; }
+@{string vsDateFormat = "'alias': 'dd/mm/yyyy'";}
+
+<div class="row">
+    <div class="col-xs-3">
+        @if (ViewData.ModelState["CLASSTYPE_ID0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="CLASSTYPE_ID">SD/SMP/SMA/SMK</label>
+                <select id="CLASSTYPE_ID" name="CLASSTYPE_ID" class="form-control select2" data-placeholder="Select CLASSTYPE_ID" style="width: 100%;" @vsReadonlyTextbox>
+                    <option selected value=""></option>
+                    @foreach (var item in ViewBag.CLASSTYPE)
+                    {
+
+                        if (Model.CLASSTYPE_ID == item.ID) {<option selected value="@item.ID">@item.CLASSTYPE_SHORTDESC</option> }
+                        else {<option value="@item.ID">@item.CLASSTYPE_CODE - @item.CLASSTYPE_SHORTDESC</option> }
+                    }
+                </select>
+
+            @if (ViewData.ModelState["CLASSTYPE_ID1"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("CLASSTYPE_ID1")
+                    </label>
+            }
+            @if (ViewData.ModelState["CLASSTYPE_ID2"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("CLASSTYPE_ID2")
+                    </label>
+            }
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-xs-3 -->
+    
+    <div class="col-xs-3">
+        @if (ViewData.ModelState["CLASSLEVEL_ID0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="CLASSLEVEL_ID">Pilih Kelas</label>
+                <select id="CLASSLEVEL_ID" name="CLASSLEVEL_ID" class="form-control select2" data-placeholder="Select CLASSLEVEL_ID" style="width: 100%;" @vsReadonlyTextbox>
+                    <option selected value=""></option>
+                    @foreach (var item in ViewBag.CLASSLEVEL)
+                    {
+
+                        if (Model.CLASSLEVEL_ID == item.ID) {<option selected value="@item.ID">@item.CLASSLEVEL_SHORTDESC</option> }
+                        else {<option value="@item.ID">@item.CLASSLEVEL_SHORTDESC</option> }
+                    }
+                </select>
+
+            @if (ViewData.ModelState["CLASSLEVEL_ID1"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("CLASSLEVEL_ID1")
+                    </label>
+            }
+            @if (ViewData.ModelState["CLASSLEVEL_ID2"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("CLASSLEVEL_ID2")
+                    </label>
+            }
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-xs-3 -->
+
+    <div class="col-xs-3">
+        @if (ViewData.ModelState["NIS0"] != null) { vsErrClass = "has-error"; } else { vsErrClass = ""; }
+        <div class="form-group @vsErrClass">
+            <label for="NIS">NIS</label>
+            <input type="text" id="NIS" name="NIS" value="@Html.DisplayFor(model => model.NIS)" class="form-control"  @vsReadonlyTextbox />
+
+            @if (ViewData.ModelState["NIS1"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("NIS1")
+                    </label>
+            }
+            @if (ViewData.ModelState["NIS2"] != null)
+            {
+                    <label class="control-label" for="inputError">
+                    <i class="fa fa-times-circle-o"></i> @Html.ValidationMessage("NIS2")
+                    </label>
+            }
+        </div> <!-- /.form-group -->
+    </div> <!-- /.col-xs-3 -->
+</div><!-- /.row -->

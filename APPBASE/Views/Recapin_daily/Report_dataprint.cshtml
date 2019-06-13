@@ -1,0 +1,68 @@
+﻿@model APPBASE.Models.ReportinVM
+
+@using APPBASE.Helpers
+@using APPBASE.Svcutil
+@using APPBASE.Svcbiz
+
+
+<!-- title Table -->
+<table width="700pt">
+<!-- title row -->
+    <tr><td colspan="5" style="text-align:center;">REKAP TOTAL SETORAN ADMINISTRASI</td></tr>
+    <tr><td colspan="5" style="text-align:center;">YAYASAN PENDIDIKAN</td></tr>
+    <tr><td colspan="5" style="text-align:center;">TAHUN AJARAN @Html.DisplayFor(fld => fld.YEAR_SHORTDESC)</td></tr>
+    <tr><td colspan="5">&nbsp;</td></tr>
+    <tr><td colspan="5">&nbsp;</td></tr>
+    <tr><td colspan="5">&nbsp;</td></tr>
+
+    <tr><td colspan="5" align="right">@hlpConvertionAndFormating.ConvertDateToStringDateShortFmt(Model.TRN_DT)</td></tr>
+</table>
+
+
+<!-- table row -->
+<div class="row">
+    <div class="col-xs-12 table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="text-align:center;">@hlpConvertionAndFormating.ConvertDateToStringDateShortFmt(Model.TRN_DT)</th>
+                    <th style="text-align:center;">SD</th>
+                    <th style="text-align:center;">SMP</th>
+                    <th style="text-align:center;">SMA</th>
+                    <th style="text-align:center;">SMK</th>
+                    <th style="text-align:center;">TOTAL PER ITEM</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @if (Model.RECAP == null) {
+                    <tr>
+                        <td>@{Html.RenderPartial("_PartialEmpty");}</td>
+                    </tr>
+                }
+
+                @foreach (var item in Model.RECAP)
+                {
+                    
+                    <tr>
+                        <td>@Html.DisplayFor(modelitem=>item.TRINTYPE_SHORTDESC)</td>
+                        <td>Rp. <span class="pull-right">@hlpConvertionAndFormating.ConvertDecimalToStringFmtThousand(item.TRN_AMOUNT_SD)</span></td>
+                        <td>Rp. <span class="pull-right">@hlpConvertionAndFormating.ConvertDecimalToStringFmtThousand(item.TRN_AMOUNT_SMP)</span></td>
+                        <td>Rp. <span class="pull-right">@hlpConvertionAndFormating.ConvertDecimalToStringFmtThousand(item.TRN_AMOUNT_SMA)</span></td>
+                        <td>Rp. <span class="pull-right">@hlpConvertionAndFormating.ConvertDecimalToStringFmtThousand(item.TRN_AMOUNT_SMK)</span></td>
+                        <td>Rp. <span class="pull-right">@hlpConvertionAndFormating.ConvertDecimalToStringFmtThousand(item.TRN_AMOUNT)</span></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div><!-- /.col -->
+</div>
+
+<!-- title row -->
+<div class="row">
+    <div class="col-xs-12">
+        <h4 class="page-header pull-right">
+            TOTAL KESELURUHAN PENERIMAAN Rp. @hlpConvertionAndFormating.ConvertDecimalToStringFmtThousand(Model.TRN_AMOUNT)
+        </h4>
+    </div><!-- /.col -->
+</div>
